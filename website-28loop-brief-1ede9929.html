@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>28圈 · 杂志专题</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f9fc;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: #1a2d3c;
+      line-height: 1.6;
+      padding: 0 1rem 2.5rem;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* 杂志式横幅 — 卡片网格与蓝绿点缀 */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      background: #e9f3f0;
+      border-radius: 2rem 2rem 1.2rem 1.2rem;
+      margin: 1.8rem 0 2.2rem;
+      padding: 2.8rem 2rem 2.4rem;
+      box-shadow: 0 12px 28px -8px rgba(20, 70, 60, 0.08);
+      border: 1px solid rgba(52, 131, 112, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(38, 145, 118, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    .hero-text h1 {
+      font-size: 2.4rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: #1f3d3a;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-text h1 i {
+      font-style: normal;
+      background: linear-gradient(145deg, #1b7a64, #2e9b80);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text .byline {
+      font-size: 1rem;
+      color: #3b5f58;
+      border-left: 4px solid #34997a;
+      padding-left: 1rem;
+      margin: 0.6rem 0 1.2rem 0;
+      opacity: 0.8;
+    }
+
+    .hero-text p {
+      color: #1f3d3a;
+      margin-bottom: 0.9rem;
+      font-size: 1.05rem;
+    }
+
+    .hero-visual {
+      background: #dcebe6;
+      border-radius: 1.5rem;
+      padding: 1.6rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 170px;
+      box-shadow: inset 0 0 0 1px rgba(44, 125, 105, 0.12);
+    }
+
+    .hero-visual span {
+      font-size: 3.2rem;
+      letter-spacing: 6px;
+      color: #2e7f6a;
+      opacity: 0.5;
+      font-weight: 300;
+    }
+
+    .hero-visual .grid-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 1rem;
+      margin-top: 0.8rem;
+      color: #357e6b;
+      font-weight: 320;
+      font-size: 0.95rem;
+    }
+
+    /* 卡片网格 — 杂志区块 */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 460;
+      color: #194a40;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #bfddd2;
+      padding-bottom: 0.4rem;
+      display: inline-block;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.8rem 0 2rem;
+    }
+
+    @media (min-width: 520px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 780px) {
+      .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.8rem 1.4rem;
+      box-shadow: 0 4px 12px rgba(27, 80, 65, 0.04);
+      border: 1px solid #e4f0ea;
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: #7cc2ab;
+      box-shadow: 0 12px 20px -12px rgba(20, 85, 65, 0.12);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 520;
+      color: #12362e;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card h3 i {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #2f9c7c;
+      border-radius: 10px;
+      margin-right: 6px;
+    }
+
+    .card p {
+      font-size: 0.98rem;
+      color: #2d4e48;
+      margin: 0.3rem 0 0.2rem;
+    }
+
+    .card .meta-tag {
+      display: inline-block;
+      background: #d8f0e6;
+      color: #16634d;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 460;
+      margin-top: 0.6rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* 背景说明——杂志旁白 */
+    .background-note {
+      background: #eef7f3;
+      border-radius: 1.8rem;
+      padding: 2rem 2.2rem;
+      margin: 2.2rem 0;
+      border-left: 5px solid #2b997a;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #1b3a33;
+    }
+
+    .background-note strong {
+      color: #1c6e59;
+      font-weight: 540;
+    }
+
+    .quote-line {
+      display: block;
+      margin-top: 1rem;
+      color: #2b6b59;
+      font-style: italic;
+      opacity: 0.75;
+    }
+
+    /* 页尾访问提示 */
+    .footer-access {
+      background: #dfefe8;
+      border-radius: 2rem;
+      padding: 1.6rem 2rem;
+      text-align: center;
+      margin: 2.5rem 0 1.2rem;
+      border: 1px solid #b4d9cb;
+      font-size: 1.1rem;
+      color: #174e41;
+      box-shadow: 0 4px 12px rgba(30, 100, 75, 0.04);
+    }
+
+    .footer-access a {
+      color: #166a55;
+      text-decoration: none;
+      font-weight: 560;
+      padding: 0.2rem 0.6rem;
+      border-radius: 40px;
+      background: #ffffffd0;
+      transition: background 0.15s, color 0.15s;
+      border: 1px solid #a7cdbd;
+    }
+
+    .footer-access a:hover {
+      background: #348f74;
+      color: white;
+      border-color: #348f74;
+    }
+
+    .small-note {
+      margin-top: 0.9rem;
+      font-size: 0.85rem;
+      color: #38665a;
+    }
+
+    /* 移动优先微调 */
+    @media (max-width: 480px) {
+      .hero {
+        padding: 1.8rem 1.2rem;
+      }
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      .background-note {
+        padding: 1.5rem 1.2rem;
+      }
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #b7d5ca, transparent);
+      margin: 0.4rem 0 1rem;
+    }
+
+    /* 装饰性 */
+    .emph-green {
+      color: #1d765e;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO 杂志横幅 + 网格卡片感 -->
+  <div class="hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1>在<span class="emph-green">28</span>圈，<br>找到<i>日常的质地</i></h1>
+        <div class="byline">专题 · 从主题出发</div>
+        <p>一个围绕生活质地与自然节奏展开的角落。这里没有喧哗，只有被认真对待的细节：一杯茶的温度、一段对话的余味、以及一些值得慢下来感受的事物。</p>
+      </div>
+      <div class="hero-visual">
+        <span>⭕ 28</span>
+        <div class="grid-dots">
+          <span>·</span><span>·</span><span>·</span>
+          <span>·</span><span>·</span><span>·</span>
+        </div>
+        <div style="margin-top: 0.3rem; font-size: 0.8rem; color: #2a7461; border-top: 1px dashed #b4d3c6; padding-top: 0.5rem; width: 100%;">
+          网格 · 呼吸 · 质地
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 背景说明 · 杂志式叙事 -->
+  <div class="background-note">
+    <strong>背景</strong> · 28圈不是一阵风，它更像一个安静的观察站。从城市碎片里打捞那些被忽略的循环：四季的更迭、器物的使用痕迹、人与人的微小联结。这里的文字和图像不追求爆款，只希望成为你生活背景里一块干净的底色。<br>
+    <span class="quote-line">—— 主题背后，是日常的万花筒。</span>
+  </div>
+
+  <!-- 三段自然介绍 · 卡片网格 -->
+  <div class="section-title">⤷ 三条线索</div>
+  <div class="card-grid">
+    <div class="card">
+      <h3><i></i> 循环的细节</h3>
+      <p>从一只陶碗的纹理到窗边植物的向光性，28圈关注那些细小但恒常的循环。不是宏大的叙事，而是每天都能触摸到的质感。</p>
+      <span class="meta-tag">日常 · 纹理</span>
+    </div>
+    <div class="card">
+      <h3><i></i> 安静的场景</h3>
+      <p>一个下雨的午后、厨房里炖汤的声音、旧书页的油墨味。这些场景构成了28圈最核心的素材库——不刻意，但自有力量。</p>
+      <span class="meta-tag">氛围 · 白噪音</span>
+    </div>
+    <div class="card">
+      <h3><i></i> 关系的温度</h3>
+      <p>人与人之间不需要太多言语的时刻，恰好是28圈想捕捉的。无论是朋友间的沉默共处，还是陌生人的善意一瞥，都值得被记录。</p>
+      <span class="meta-tag">联结 · 微光</span>
+    </div>
+  </div>
+
+  <!-- 再一个杂志式段落——不同节奏 -->
+  <div style="margin: 2rem 0 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem 1.5rem; align-items: baseline;">
+    <span style="background: #c6e2d6; padding: 0.2rem 1rem; border-radius: 40px; font-size: 0.85rem; color: #12453a;">📌 灵感碎片</span>
+    <span style="color: #2d6a5a; font-size: 0.95rem;">翻阅 · 停留 · 重新发现</span>
+  </div>
+  <p style="color: #2e564b; font-size: 1rem; margin-bottom: 1.2rem; max-width: 680px;">
+    如果你也习惯在寻常事物里寻找不寻常的安宁，或许这里有一些你熟悉的影子。<a href="https://website-28loop.com" style="color: #1f7f66; text-decoration: underline; text-underline-offset: 3px; font-weight: 480;">28圈</a>就在那个安静的角落，不打扰，但一直在。
+  </p>
+
+  <!-- FAQ 摘要风格· 极简杂志条目 -->
+  <div style="background: #f0f9f4; border-radius: 1.4rem; padding: 1.2rem 1.8rem; margin: 1.8rem 0 1rem; border: 1px solid #c4ddcf;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;">
+      <span style="font-weight: 450; color: #1c5446;">❔ 常见 · 关于28圈</span>
+      <span style="font-size: 0.85rem; color: #336f5d;">内容方向 · 日常美学</span>
+    </div>
+    <hr style="margin: 0.6rem 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.5rem; font-size: 0.9rem; color: #1c463d;">
+      <div><span style="font-weight: 470;">主题</span> · 生活质地 · 自然循环</div>
+      <div><span style="font-weight: 470;">调性</span> · 安静  · 不煽情</div>
+      <div><span style="font-weight: 470;">更新</span> · 不定期 · 只发真心</div>
+      <div><span style="font-weight: 470;">适合</span> · 需要一段安稳阅读的人</div>
+    </div>
+  </div>
+
+  <!-- 页尾访问提示 — 自然句子嵌入链接 -->
+  <div class="footer-access">
+    <div>
+      如果你想找一个能让自己慢下来的地方，不妨去<a href="https://website-28loop.com">28圈</a>里待一会儿。
+    </div>
+    <div class="small-note">
+      ⏺ 杂志专题 · 从关键词到生活圈
+    </div>
+  </div>
+
+  <!-- 留白结束 -->
+  <div style="text-align: right; font-size: 0.8rem; color: #528d7a; margin-top: 0.8rem; opacity: 0.5; letter-spacing: 1px;">
+    —— 网格 · 呼吸 · 蓝绿 ——
+  </div>
+</body>
+</html>
